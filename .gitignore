@@ -1,1 +1,4 @@
 images/
+vendor/
+nbproject/
+output.gif

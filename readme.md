@@ -1,4 +1,4 @@
-# conway-php
+# game-of-life
 
 Conway's Game of Life in PHP.
 
