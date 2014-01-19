@@ -28,4 +28,8 @@ class Cell {
         );
     }
 
+    public function __toString() {
+        return '[' . $this->x . ';' . $this->y . ']';
+    }
+
 }

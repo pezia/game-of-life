@@ -12,6 +12,12 @@ class CellTest extends \PHPUnit_Framework_TestCase {
         $this->cell = new Cell(0, 0);
     }
 
+    public function cellDataProvider() {
+        return array(
+            array(new Cell(0, 0), '[0;0]')
+        );
+    }
+
     public function testGetNeighbours() {
         $neighbours = $this->cell->getNeighbours();
 
@@ -27,6 +33,13 @@ class CellTest extends \PHPUnit_Framework_TestCase {
             new Cell(-1, 1),
             new Cell(0, 1),
             new Cell(1, 1)), $neighbours);
+    }
+
+    /**
+     * @dataProvider cellDataProvider
+     */
+    public function testToString($cell, $expectedOutput) {
+        $this->assertEquals((string) $cell, $expectedOutput);
     }
 
 }
