@@ -14,21 +14,24 @@ $offsetY = 240;
 //$img->newimage(640, 480, new ImagickPixel('black'));
 
 $gdImg = imagecreatetruecolor(640, 480);
-$backgroundColor = imagecolorallocate($gdImg, 0, 0, 0);
-$cellColor = imagecolorallocate($gdImg, 255, 255, 25);
+$backgroundColor = imagecolorallocate($gdImg, 255, 255, 255);
+$cellColor = imagecolorallocate($gdImg, 0, 0, 0);
 
 imagefill($gdImg, 640, 480, $backgroundColor);
 
 $solver = new Solver();
 
 $world = new World();
-$world->addCell(new Cell(0, 0));
-$world->addCell(new Cell(0, 1));
-$world->addCell(new Cell(0, 2));
-$world->addCell(new Cell(1, 1));
+$world->addCell(new Cell(0, -1));
+$world->addCell(new Cell(1, -2));
+$world->addCell(new Cell(2, -2));
+$world->addCell(new Cell(2, -1));
+$world->addCell(new Cell(2, 0));
 
 //$draw = new ImagickDraw();
 //$draw->setfillcolor(new ImagickPixel('white'));
+
+$start = microtime(true);
 
 for ($i = 0; $i < 30; $i++) {
 //    $frame = new Imagick();
@@ -39,7 +42,7 @@ for ($i = 0; $i < 30; $i++) {
 //        $draw->rectangle($offsetX + $squareSize * $cell->x, $offsetY + $squareSize * $cell->y, $offsetX + $squareSize * ($cell->x + 1), $offsetY + $squareSize * ($cell->y + 1));
         imagefilledrectangle($gdImg, $offsetX + $squareSize * $cell->x, $offsetY + $squareSize * $cell->y, $offsetX + $squareSize * ($cell->x + 1), $offsetY + $squareSize * ($cell->y + 1), $cellColor);
     }
-    imagepng($gdImg, 'images/gol_' . str_pad($i, 3, '0', STR_PAD_LEFT) . '.png');
+    imagepng($gdImg, __DIR__ . '/images/gol_' . str_pad($i, 3, '0', STR_PAD_LEFT) . '.png');
 
     //$frame->drawimage($draw);
     //$img->addimage($frame);
@@ -48,7 +51,9 @@ for ($i = 0; $i < 30; $i++) {
     $world = $solver->getNextWorld($world);
 }
 
+echo 'finished in ', microtime(true) - $start, 'seconds', PHP_EOL;
+
 //$img->writeimages('images/gol.gif', true);
 //$img->destroy();
 
-exec('convert -delay 20 -loop 0 images/gol_*.png output.gif');
+exec('convert -delay 20 -loop 0 ' . __DIR__ . '/images/gol_*.png output.gif');
