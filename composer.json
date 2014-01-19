@@ -1,0 +1,19 @@
+{
+    "name": "pezia/gol",
+    "description": "Conways Game of Life implementation",
+    "keywords": [],
+    "homepage": "http://pezia.hu",
+    "license": "MIT",
+    "authors": [
+        {"name": "Zsolt Petrik", "email": "pezia@pezia.hu"}
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pezia\\Gol\\Test\\": "test/",
+            "Pezia\\Gol\\": "src/"
+        }
+    }
+}
