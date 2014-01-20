@@ -39,7 +39,7 @@ $world = Pezia\Gol\WorldConverter::fromString(file_get_contents($inputFile));
 //$draw = new ImagickDraw();
 //$draw->setfillcolor(new ImagickPixel('white'));
 
-$start = microtime(true);
+$generationTimes = array();
 
 for ($i = 0; $i < $iterationCount; $i++) {
 //    $frame = new Imagick();
@@ -56,10 +56,12 @@ for ($i = 0; $i < $iterationCount; $i++) {
     //$img->addimage($frame);
     //$frame->writeimages('images/gol_'.  str_pad($i, 3, '0', STR_PAD_LEFT).'.png', true);
     //$frame->destroy();
+    $start = microtime(true);
     $world = $solver->getNextWorld($world);
+    $generationTimes[] = microtime(true) - $start;
 }
 
-echo 'finished in ', microtime(true) - $start, 'seconds', PHP_EOL;
+echo 'Average generation time: ', array_sum($generationTimes) / count($generationTimes) , PHP_EOL;
 
 //$img->writeimages('images/gol.gif', true);
 //$img->destroy();
